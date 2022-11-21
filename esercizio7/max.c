@@ -100,7 +100,7 @@ node *new_tree(int *a, int size) {
 
 /**
  * Returns the max value of the leafs of a <b>max tree</b> contained in the range [i..j].\n\n
- * This is done in Θ(log(n)).\n\n
+ * This is done in O(log(n)).\n\n
  * This function should never be used, use instead <u>max</u>
  *
  * @param head a node struct
@@ -127,7 +127,7 @@ int max_rec(node *head, int n, int m, int i, int j) {
 
 /**
  * Returns the max value of the leafs of a <b>max tree</b> contained in the range [i..j].\n\n
- * This is done in Θ(log(n)).\n\n
+ * This is done in O(log(n)).\n\n
  *
  * @param head a node struct
  * @return the max value of the leafs contained in [i..j]

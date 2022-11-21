@@ -7,18 +7,11 @@
 
 #define MAX_LINE_SIZE 10000   // maximum size of a line of input
 
-void readline (char *line) {
-    int i = 0;
-    for(int c = getchar(); c != '\n'; c = getchar()) {
-        line[i] = c;
-        i++;
-    }
-}
-
 int scanArray(int *a) {
     // scan line of text
-    char line [MAX_LINE_SIZE];
-    readline(line);
+    char line[MAX_LINE_SIZE];
+    scanf("%[^\n]", line);
+    getchar();
 
     // convert text into array
     int size = 0, offset = 0, numFilled, n;
@@ -35,8 +28,6 @@ int scanArray(int *a) {
 
 int main() {
 
-    // TODO: get array from command line.
-    /*
     // read first line and place the elements in an array.
     int *a = malloc(MAX_LINE_SIZE * sizeof(int));
     int size_a = scanArray(a);
@@ -56,22 +47,15 @@ int main() {
         return 2;
     }
     ranges = realloc(ranges, size_ranges * sizeof(int));
-     */
-
-    int a[6] = {1, 2, 3, 4, 5, 6};
-    int size_a = 6;
-
-    int ranges[4] = {1, 2, 3, 5};
-    int size_ranges = 4;
 
     // create list of partial sums.
     // int *partial_sum = create_partial_sum(a, size_a);
 
     // create support struct for finding the product.
-    // p_support *supp = new_p_support(a, size_a);
+    p_support *supp = new_p_support(a, size_a);
 
     // create support struct for finding the maximum.
-    node *tree = new_tree(a, size_a);
+    // node *tree = new_tree(a, size_a);
 
     // loop over ranges array
     for (int i = 0; i < size_ranges; i=i+2) {
@@ -86,10 +70,10 @@ int main() {
             // int result = sum(partial_sum, ranges[i], ranges[i+1]);
 
             // return product between to indices
-            // int result = product(supp, ranges[i], ranges[i+1]);
+            int result = product(supp, ranges[i], ranges[i+1]);
 
             // return maximum between to indices
-            int result = max(tree,ranges[i], ranges[i+1], size_a);
+            // int result = max(tree,ranges[i], ranges[i+1], size_a);
 
             printf("%d ", result);
         }
