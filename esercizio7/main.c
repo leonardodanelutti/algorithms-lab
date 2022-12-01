@@ -64,6 +64,7 @@ int main() {
             return 3;
         } else {
 
+            // return sum between to indices
             // int result = naive_sum(a, ranges[i], ranges[i+1]);
 
             // return sum between to indices

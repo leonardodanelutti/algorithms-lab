@@ -71,7 +71,7 @@ int index_of_leafs;
  * @param a an array of integers
  * @param i a recursion parameter
  * @param j a recursion parameter
- * @return a new node struct that represent the max tree
+ * @return a new node struct that represent the <b>max tree</b>
  */
 node *new_tree_rec(int *a, int i, int j) {
     if (i == j) {
@@ -91,7 +91,7 @@ node *new_tree_rec(int *a, int i, int j) {
  * This is done in Θ(n).
  *
  * @param a an array of integers
- * @return a new node struct that represent the max tree
+ * @return a new node struct that represent the <b>max tree</b>
  */
 node *new_tree(int *a, int size) {
     index_of_leafs = -1;

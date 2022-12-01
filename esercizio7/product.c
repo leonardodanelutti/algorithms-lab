@@ -10,14 +10,14 @@
  * @param exp an integer
  * @return base^(exp) % N
  */
-long exponentiation(int base, int exp) {
+int exponentiation(int base, int exp) {
     long long t = 1L;
     while (exp > 0) {
 
         if (exp % 2 == 1)
             t = (t * base) % N;
 
-        base = ((long long) base * base) % N;
+        base = (int) (((long long) base * base) % N);
         exp /= 2;
     }
     return (int) t;
@@ -44,7 +44,7 @@ int division(int x, int y) {
  * <li><u>zero</u>: partial sum of zeros in an array</li>
  * </ul>
  */
-typedef struct product_support {
+typedef struct {
     int *partial_product;
     int *zeros;
 } p_support;
