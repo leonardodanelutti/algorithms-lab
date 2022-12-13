@@ -33,6 +33,18 @@ int in_order(int *array, int size, int pos) {
     in_order(array, size, k);
 }
 
+int is_sorted(int *array, int size){
+    for(int i = 0; i < size-1; i++){
+        if(array[i] > array[i+1])
+            return 0;
+    }
+    return 1;
+}
+
+int is_bst(int *array, int size) {
+    in_order(array, size, 0);
+    return is_sorted(array, size);
+}
 
 
 int main() {
