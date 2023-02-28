@@ -30,7 +30,7 @@ int main() {
         while (s[x] != s[i] && x>0) {
             // continuo la comparazione nel successivo bordo massimo
             // che corrisponde al bordo del bordo attuale
-            x = b[x];
+            x = b[x-1];
         }
         // se sono uguali aggiungo 1 alla lunghezza del prefisso
         if (s[x] == s[i]) {

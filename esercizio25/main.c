@@ -55,8 +55,8 @@ int main() {
     char *str1 = malloc(MAX_LINE_SIZE * sizeof(char));
     char *str2 = malloc(MAX_LINE_SIZE * sizeof(char));
     scanf("%s%n\n%n%s%n", str1, &size_str1, &mid, str2, &size_str2);
-    str1 = realloc(str1, size_str1*sizeof(int));
-    str2 = realloc(str2, size_str2*sizeof(int));
+    str1 = realloc(str1, size_str1*sizeof(char));
+    str2 = realloc(str2, size_str2*sizeof(char));
     size_str2 = size_str2 - mid;
 
     int result = editing_distance(str1, str2, size_str1, size_str2);
