@@ -1,21 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #define MAX_LINE_SIZE 10000   // maximum size of a line of input
 
-typedef struct {
-    int array_len;
-    int number_of_nodes;
-} Size;
-
+/// An element of the array, with a value and a null flag
 typedef struct {
     int value;
     int null;
 } Node;
 
-Size scanArray(Node *a) {
-
+/// Reads the array from stdin
+int scanArray(Node *a) {
     char input[MAX_LINE_SIZE];
     char *token;
 
@@ -23,54 +20,59 @@ Size scanArray(Node *a) {
 
     token = strtok(input, " ");
     int i = 0;
-    int j = 0;
     while (token != NULL) {
         if (strcmp(token, "NULL") == 0 || strcmp(token, "NULL\n") == 0) {
             a[i] = (Node) {0, 1};
         } else {
             a[i] = (Node) {atoi(token), 0};
-            j++;
         }
         token = strtok(NULL, " ");
         i++;
     }
-
-    Size size = {i, j};
-    return size;
+    return i;
 }
 
-int in_order(Node *array, int *result, int pos, int *i) {
+/**
+ * Recursive function to check if the array is a binary search tree
+ *
+ * @param array the pointer to the array to check
+ * @param result the pointer to the result of the check
+ * @param pos the position of the current element, recursive parameter
+ * @param last the value of the previous element in the recursion, recursive parameter
+ * @return the position of the last element of the array
+ */
+int in_order(Node *array, int *result, int pos, int *last) {
+    // The element is null, return the position
     if (array[pos].null)
-        return pos+1;
-    int k = in_order(array, result, pos+1, i);
-    result[*i] = array[pos].value;
-    *i = *i + 1;
-    in_order(array, result, k, i);
+        return pos;
+    // call the function recursively on the left subtree
+    int k = in_order(array, result, pos+1, last);
+    // check if the current element is greater than the previous one
+    *result = *result && *last < array[pos].value;
+    // update last
+    *last = array[pos].value;
+    // call the function recursively on the right subtree
+    in_order(array, result, k+1, last);
 }
 
-int is_sorted(int *array, int size){
-    for(int i = 0; i < size-1; i++){
-        if(array[i] > array[i+1])
-            return 0;
-    }
-    return 1;
+/**
+ * Checks if the array is a binary search tree
+ *
+ * @param array the pointer to the array to check
+ * @return 1 if the array is a binary search tree, 0 otherwise
+ */
+int is_bst(Node *array) {
+    int result = 1;
+    int last = INT_MIN;
+    in_order(array, &result, 0, &last);
+    return result;
 }
-
-int is_bst(Node *array, int size) {
-    int *result = calloc(size, sizeof(int));
-    int i = 0;
-    in_order(array, result, 0, &i);
-    int sorted = is_sorted(result, size);
-    free(result);
-    return sorted;
-}
-
 
 int main() {
     Node *a = calloc(MAX_LINE_SIZE, sizeof(Node));
-    Size size = scanArray(a);
-    a = realloc(a, size.array_len*sizeof(Node));
-    printf("%d", is_bst(a, size.number_of_nodes));
+    int size = scanArray(a);
+    a = realloc(a, size*sizeof(Node));
+    printf("%d", is_bst(a));
     free(a);
     return 0;
 }
